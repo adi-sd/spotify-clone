@@ -7,6 +7,8 @@ import "./globals.css";
 
 // Component Imports
 import Sidebar from "@/components/sidebar";
+import SupabaseProvider from "@/providers/supabase-provider";
+import UserProvider from "@/providers/user-provider";
 
 // Constants
 const font = Figtree({ subsets: ["latin"] });
@@ -27,7 +29,11 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
             <body className={font.className}>
-                <Sidebar>{children}</Sidebar>
+                <SupabaseProvider>
+                    <UserProvider>
+                        <Sidebar>{children}</Sidebar>
+                    </UserProvider>
+                </SupabaseProvider>
             </body>
         </html>
     );
