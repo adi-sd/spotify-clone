@@ -1,5 +1,8 @@
 "use client";
 
+import useAuthModal from "@/hooks/use-auth-modal";
+import useUploadModal from "@/hooks/use-upload-modal";
+import { useUser } from "@/hooks/use-user";
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
@@ -7,8 +10,15 @@ import { TbPlaylist } from "react-icons/tb";
 interface LibraryProps {}
 
 const Library: React.FC<LibraryProps> = ({}) => {
+    const authModal = useAuthModal();
+    const uploadModal = useUploadModal();
+    const { user } = useUser();
+
     const onClick = () => {
-        // handle upload later
+        if (!user) {
+            return authModal.onOpen(false);
+        }
+        return uploadModal.onOpen();
     };
 
     return (

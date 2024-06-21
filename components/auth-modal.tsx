@@ -2,7 +2,7 @@
 
 import { useSessionContext, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
-import { Auth, SocialAuth } from "@supabase/auth-ui-react";
+import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useEffect } from "react";
 
@@ -44,6 +44,9 @@ const AuthModal = () => {
                 view={isSignUp ? "sign_up" : "sign_in"}
                 supabaseClient={supabaseClient}
                 providers={["spotify"]}
+                providerScopes={{
+                    spotify: process.env.SPOTIFY_AUTH_SCOPE,
+                }}
                 appearance={{
                     theme: ThemeSupa,
                     variables: {
