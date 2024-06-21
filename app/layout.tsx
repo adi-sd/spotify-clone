@@ -9,6 +9,8 @@ import "./globals.css";
 import Sidebar from "@/components/sidebar";
 import SupabaseProvider from "@/providers/supabase-provider";
 import UserProvider from "@/providers/user-provider";
+import ModalProvider from "@/providers/modal-provider";
+import ToasterProvider from "@/providers/toaster-provider";
 
 // Constants
 const font = Figtree({ subsets: ["latin"] });
@@ -29,8 +31,10 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
             <body className={font.className}>
+                <ToasterProvider></ToasterProvider>
                 <SupabaseProvider>
                     <UserProvider>
+                        <ModalProvider></ModalProvider>
                         <Sidebar>{children}</Sidebar>
                     </UserProvider>
                 </SupabaseProvider>

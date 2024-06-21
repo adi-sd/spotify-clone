@@ -33,6 +33,16 @@ export const MyUserContextProvider = (props: Props) => {
             .in("status", ["active", "trialing"])
             .single();
 
+    const signInWithSpotify = async () => {
+        let oauthResponse = await supabase.auth.signInWithOAuth({
+            provider: "spotify",
+            options: {
+                redirectTo: `http://example.com/auth/callback`,
+                scopes: process.env.SPOTIFY_AUTH_SCOPE,
+            },
+        });
+    };
+
     useEffect(() => {
         if (user && !isLoadingData && !userDetails && !subscription) {
             setIsLoadingData(true);
