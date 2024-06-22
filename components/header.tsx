@@ -88,8 +88,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                                             className="rounded-full"
                                             src={userDetails.avatar_url}
                                             alt="Avatar Image"
-                                            width={25}
-                                            height={25}
+                                            fill
                                         ></Image>
                                     ))
                                 ) : (
