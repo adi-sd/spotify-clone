@@ -139,11 +139,11 @@ const UploadModal = () => {
                             {...register("image", { required: true })}
                         ></Input>
                     </div>
-                </div>
-                <div className="pt-6 pb-3">
-                    <Button disabled={isLoading} type="submit">
-                        Upload
-                    </Button>
+                    <div className="pt-6 pb-3">
+                        <Button className="w-full" disabled={isLoading} type="submit">
+                            Upload
+                        </Button>
+                    </div>
                 </div>
             </form>
         </Modal>

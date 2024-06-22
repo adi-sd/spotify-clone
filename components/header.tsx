@@ -2,9 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
+import Image from "next/image";
 import { BiSearch } from "react-icons/bi";
 import { HiHome } from "react-icons/hi";
-import { FaUserAlt } from "react-icons/fa";
+import { FaPlusCircle, FaUserAlt } from "react-icons/fa";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { twMerge } from "tailwind-merge";
 import toast from "react-hot-toast";
@@ -13,6 +14,7 @@ import Button from "./button";
 import useAuthModal from "@/hooks/use-auth-modal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/use-user";
+import useUploadModal from "@/hooks/use-upload-modal";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -21,10 +23,11 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
     const authModal = useAuthModal();
+    const uploadModal = useUploadModal();
     const router = useRouter();
 
     const supabaseClient = useSupabaseClient();
-    const { user } = useUser();
+    const { user, userDetails } = useUser();
 
     const handleLogout = async () => {
         const { error } = await supabaseClient.auth.signOut();
@@ -62,6 +65,12 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                     <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
                         <BiSearch className="text-black" size={20}></BiSearch>
                     </button>
+                    <button
+                        className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition"
+                        onClick={uploadModal.onOpen}
+                    >
+                        <FaPlusCircle className="text-black" size={20}></FaPlusCircle>
+                    </button>
                 </div>
                 <div className="flex items-center justify-between gap-x-4">
                     {user ? (
@@ -70,10 +79,23 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                                 onClick={() => {
                                     router.push("/profile");
                                 }}
-                                className="flex items-center gap-x-3 px-5 py-2"
+                                className="flex items-center gap-x-3 pl-3 pr-4 py-2"
                             >
-                                <FaUserAlt></FaUserAlt>
-                                <p>User Profile</p>
+                                {userDetails?.avatar_url ? (
+                                    (console.log(userDetails.avatar_url),
+                                    (
+                                        <Image
+                                            className="rounded-full"
+                                            src={userDetails.avatar_url}
+                                            alt="Avatar Image"
+                                            width={25}
+                                            height={25}
+                                        ></Image>
+                                    ))
+                                ) : (
+                                    <FaUserAlt></FaUserAlt>
+                                )}
+                                <p>{userDetails?.full_name ? userDetails.full_name : "User Profile"}</p>
                             </Button>
                             <Button onClick={handleLogout} className="bg-white px-6 py-2">
                                 Log Out
