@@ -88,11 +88,12 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                                             className="rounded-full"
                                             src={userDetails.avatar_url}
                                             alt="Avatar Image"
-                                            fill
+                                            height={25}
+                                            width={25}
                                         ></Image>
                                     ))
                                 ) : (
-                                    <FaUserAlt></FaUserAlt>
+                                    <FaUserAlt size={15}></FaUserAlt>
                                 )}
                                 <p>{userDetails?.full_name ? userDetails.full_name : "User Profile"}</p>
                             </Button>

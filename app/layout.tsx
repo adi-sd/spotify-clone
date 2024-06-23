@@ -11,6 +11,7 @@ import SupabaseProvider from "@/providers/supabase-provider";
 import UserProvider from "@/providers/user-provider";
 import ModalProvider from "@/providers/modal-provider";
 import ToasterProvider from "@/providers/toaster-provider";
+import getSongsByUserId from "@/actions/get-songs-by-user";
 
 // Constants
 const font = Figtree({ subsets: ["latin"] });
@@ -20,11 +21,15 @@ export const metadata: Metadata = {
     description: "A Music Player built with Next.js and Tailwind CSS",
 };
 
-export default function RootLayout({
+export const revalidate = 0;
+
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const userSongs = await getSongsByUserId();
+
     return (
         <html lang="en">
             <head>
@@ -35,7 +40,7 @@ export default function RootLayout({
                 <SupabaseProvider>
                     <UserProvider>
                         <ModalProvider></ModalProvider>
-                        <Sidebar>{children}</Sidebar>
+                        <Sidebar songs={userSongs}>{children}</Sidebar>
                     </UserProvider>
                 </SupabaseProvider>
             </body>
