@@ -29,7 +29,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
 
     return (
         <Input
-            className="bg-neutral-800 h-[70px] focus:border focus:border-neutral-500 placeholder:text-lg placeholder:p-3"
+            className="bg-neutral-800 h-[70px] focus:border focus:border-neutral-500 placeholder:text-lg"
             placeholder="What do you want to listen to?"
             value={value}
             onChange={(e) => setValue(e.target.value)}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Song } from "@/types";
 import useLoadImage from "@/hooks/use-load-image";
 import PlayButton from "./play-button";
+import LikeButton from "./like-button";
 
 interface SongItemProps {
     data: Song;
@@ -27,11 +28,16 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
                     fill
                 ></Image>
             </div>
-            <div className="flex flex-col items-start w-full pt-4 gap-y-1">
-                <p className="font-semibold text-lg truncate w-full">{data.title}</p>
-                <p className="text-neutral-400 text-sm w-full truncate">By {data.author}</p>
+            <div className="w-full p-2 pt-4 flex justify-center items-center">
+                <div className="flex flex-col items-start w-full gap-y-1">
+                    <p className="font-semibold text-lg truncate w-full">{data.title}</p>
+                    <p className="text-neutral-400 text-sm w-full truncate">By {data.author}</p>
+                </div>
+                <div className="flex justify-center items-center pr-2">
+                    <LikeButton songId={data.id} size={35}></LikeButton>
+                </div>
             </div>
-            <div className="absolute bottom-24 right-5">
+            <div className="absolute bottom-28 right-6">
                 <PlayButton></PlayButton>
             </div>
         </div>

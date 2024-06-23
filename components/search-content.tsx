@@ -1,6 +1,8 @@
 "use client";
 
 import { Song } from "@/types";
+import MediaItem from "./media-item";
+import LikeButton from "./like-button";
 
 interface SearchContentProps {
     songs: Song[];
@@ -16,12 +18,10 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
             {songs.map((song) => (
                 <div
                     key={song.id}
-                    className="flex flex-row items-center justify-between w-full px-6 py-4 bg-neutral-800 rounded-md"
+                    className="flex flex-row items-center justify-between w-full px-4 py-2 rounded-md bg-neutral-800"
                 >
-                    <div className="flex items-center justify-center gap-x-2">
-                        <div className="text-white text-lg font-bold">{song.title}</div>
-                        <div className="text-neutral-400 text-sm align-text-bottom">by {song.author}</div>
-                    </div>
+                    <MediaItem onClick={() => {}} data={song}></MediaItem>
+                    <LikeButton songId={song.id}></LikeButton>
                 </div>
             ))}
         </div>
