@@ -1,14 +1,14 @@
 "use client";
 
 import useGetSongsById from "@/hooks/use-get-songs-by-id";
-import useLoadImage from "@/hooks/use-load-image";
 import useMusicPlayer from "@/hooks/use-music-player";
 import PlayerContent from "./player-content";
+import useLoadSong from "@/hooks/use-load-song";
 
 const MusicPlayer = () => {
     const player = useMusicPlayer();
     const { song } = useGetSongsById(player.activeId);
-    const songUrl = useLoadImage(song!);
+    const songUrl = useLoadSong(song!);
 
     if (!song || !songUrl || !player.activeId) {
         return null;
