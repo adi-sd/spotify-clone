@@ -4,19 +4,20 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
+import { Song } from "@/types";
 
 interface ListItemProps {
     image: string;
     name: string;
     href: string;
     disabled?: boolean;
+    songs?: Song[];
 }
 
-const ListItem: React.FC<ListItemProps> = ({ image, name, href, disabled }) => {
+const ListItem: React.FC<ListItemProps> = ({ image, name, href, disabled, songs }) => {
     const router = useRouter();
 
     const onClick = () => {
-        // Add Auth in future
         router.push(href);
     };
 
@@ -30,9 +31,9 @@ const ListItem: React.FC<ListItemProps> = ({ image, name, href, disabled }) => {
                 <Image className="object-cover" src={image} alt={name} height={64} width={64}></Image>
             </div>
             <p className="font-semibold truncate py-5">{name}</p>
-            <div className="absolute transition opacity-0 rounded-full flex items-center justify-center bg-green-500 p-4 pl-[¸] drop-shadow-md right-5 group-hover:opacity-100 hover:scale-110">
+            {/* <div className="absolute transition opacity-0 rounded-full flex items-center justify-center bg-green-500 p-4 pl-[¸] drop-shadow-md right-5 group-hover:opacity-100 hover:scale-110">
                 <FaPlay className="text-black"></FaPlay>
-            </div>
+            </div> */}
         </button>
     );
 };

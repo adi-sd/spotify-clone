@@ -11,13 +11,15 @@ import LikeButton from "./like-button";
 import Slider from "./slider";
 import useMusicPlayer from "@/hooks/use-music-player";
 import useSound from "use-sound";
+import { TbPlaylist } from "react-icons/tb";
 
 interface PlayerContentProps {
     song: Song;
     songUrl: string;
+    songs?: Song[];
 }
 
-const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
+const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl, songs }) => {
     const player = useMusicPlayer();
     const [volume, setVolume] = useState(1);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -111,9 +113,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                 ></AiFillStepForward>
             </div>
 
-            <div className="hidden md:flex w-full justify-end pr-2">
+            <div className="hidden md:flex w-full justify-end items-center gap-x-6 pr-2">
+                {/* <div className="flex items-center justify-center cursor-pointer">
+                    <TbPlaylist size={30} onClick={() => ()}></TbPlaylist>
+                </div> */}
                 <div className="flex items-center gap-x-2 w-[120px]">
-                    <VolumeIcon onClick={toggleMute} size={25} className="cursor-pointer"></VolumeIcon>
+                    <VolumeIcon onClick={toggleMute} size={30} className="cursor-pointer"></VolumeIcon>
                     <Slider value={volume} onChange={(value) => setVolume(value)}></Slider>
                 </div>
             </div>

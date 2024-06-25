@@ -5,8 +5,9 @@ import MediaItem from "./media-item";
 import LikeButton from "./like-button";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/use-user";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import toast from "react-hot-toast";
+import useOnPlay from "@/hooks/use-on-play";
 
 interface LikedContentProps {
     songs: Song[];
@@ -15,6 +16,8 @@ interface LikedContentProps {
 const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
     const router = useRouter();
     const { isLoading, user } = useUser();
+
+    const onPlay = useOnPlay(songs);
 
     useEffect(() => {
         if (!isLoading && !user) {
@@ -34,7 +37,12 @@ const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
                     key={song.id}
                     className="flex flex-row items-center justify-between w-full px-4 py-2 rounded-md bg-neutral-800"
                 >
-                    <MediaItem onClick={() => {}} data={song}></MediaItem>
+                    <MediaItem
+                        onClick={(id: string) => {
+                            onPlay(id);
+                        }}
+                        data={song}
+                    ></MediaItem>
                     <LikeButton songId={song.id} size={35}></LikeButton>
                 </div>
             ))}
