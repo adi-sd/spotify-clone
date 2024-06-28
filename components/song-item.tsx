@@ -25,8 +25,8 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
                     className="object-cover"
                     src={imagePath || "public/images/liked-songs.png"}
                     alt={`Album Art for ${data.title} by ${data.author}`}
-                    height={220}
-                    width={220}
+                    height={350}
+                    width={350}
                 ></Image>
                 <div className="absolute bottom-2 right-2">
                     <PlayButton size={20}></PlayButton>
