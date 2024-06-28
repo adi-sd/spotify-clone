@@ -12,6 +12,7 @@ import Slider from "./slider";
 import useMusicPlayer from "@/hooks/use-music-player";
 import useSound from "use-sound";
 import { TbPlaylist } from "react-icons/tb";
+import usePlayListModal from "@/hooks/use-playlist-modal";
 
 interface PlayerContentProps {
     song: Song;
@@ -21,6 +22,7 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl, songs }) => {
     const player = useMusicPlayer();
+    const playList = usePlayListModal();
     const [volume, setVolume] = useState(1);
     const [isPlaying, setIsPlaying] = useState(false);
 
@@ -39,6 +41,15 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl, songs }) =
         const currentIndex = player.ids.findIndex((id) => id == player.activeId);
         const nextSong = player.ids[currentIndex - 1] || player.ids[player.ids.length - 1];
         player.setId(nextSong);
+    };
+
+    const onOpenPlaylist = () => {
+        if (!player.songs) {
+            return;
+        } else {
+            playList.setSongs(player.songs);
+            playList.onOpen();
+        }
     };
 
     const [play, { pause, sound }] = useSound(songUrl, {
@@ -114,9 +125,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl, songs }) =
             </div>
 
             <div className="hidden md:flex w-full justify-end items-center gap-x-6 pr-2">
-                {/* <div className="flex items-center justify-center cursor-pointer">
-                    <TbPlaylist size={30} onClick={() => ()}></TbPlaylist>
-                </div> */}
+                <div className="flex items-center justify-center cursor-pointer">
+                    <TbPlaylist size={30} onClick={onOpenPlaylist}></TbPlaylist>
+                </div>
                 <div className="flex items-center gap-x-2 w-[120px]">
                     <VolumeIcon onClick={toggleMute} size={30} className="cursor-pointer"></VolumeIcon>
                     <Slider value={volume} onChange={(value) => setVolume(value)}></Slider>

@@ -12,6 +12,7 @@ import UserProvider from "@/providers/user-provider";
 import ModalProvider from "@/providers/modal-provider";
 import ToasterProvider from "@/providers/toaster-provider";
 import getSongsByUserId from "@/actions/get-songs-by-user";
+import getActiveProductWithPrices from "@/actions/get-active-product-with-prices";
 import MusicPlayer from "@/components/music-player";
 
 // Constants
@@ -30,6 +31,7 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     const userSongs = await getSongsByUserId();
+    const products = await getActiveProductWithPrices();
 
     return (
         <html lang="en">
@@ -40,7 +42,7 @@ export default async function RootLayout({
                 <ToasterProvider></ToasterProvider>
                 <SupabaseProvider>
                     <UserProvider>
-                        <ModalProvider></ModalProvider>
+                        <ModalProvider products={products}></ModalProvider>
                         <Sidebar songs={userSongs}>{children}</Sidebar>
                         <MusicPlayer></MusicPlayer>
                     </UserProvider>

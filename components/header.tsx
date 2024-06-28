@@ -15,6 +15,7 @@ import useAuthModal from "@/hooks/use-auth-modal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/use-user";
 import useUploadModal from "@/hooks/use-upload-modal";
+import useMusicPlayer from "@/hooks/use-music-player";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -24,6 +25,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
     const authModal = useAuthModal();
     const uploadModal = useUploadModal();
+    const musicPlayer = useMusicPlayer();
     const router = useRouter();
 
     const supabaseClient = useSupabaseClient();
@@ -31,8 +33,9 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
     const handleLogout = async () => {
         const { error } = await supabaseClient.auth.signOut();
-        // Reset any currently playing songs
+
         router.refresh();
+        musicPlayer.reset();
 
         if (error) {
             toast.error("An error occurred while logging out");

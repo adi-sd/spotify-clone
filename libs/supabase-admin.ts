@@ -72,7 +72,7 @@ const createOrRetrieveCustomer = async ({ email, uuid }: { email: string; uuid: 
 
         const { error: supabaseError } = await supabaseAdmin
             .from("customers")
-            .insert([{ id: uuid, stripe_cutomer_id: customer.id }]);
+            .insert([{ id: uuid, stripe_customer_id: customer.id }]);
 
         if (supabaseError) {
             throw supabaseError;
