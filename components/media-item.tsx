@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import useLoadImage from "@/hooks/use-load-image";
 import { Song } from "@/types";
+import useMusicPlayer from "@/hooks/use-music-player";
 
 interface MediaItemProps {
     onClick?: (id: string) => void;
@@ -12,13 +13,13 @@ interface MediaItemProps {
 
 const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
     const imageUrl = useLoadImage(data);
+    const musicPlayer = useMusicPlayer();
 
     const handleClick = () => {
         if (onClick) {
             return onClick(data.id);
         }
-
-        // Default Turn on Music Player
+        return musicPlayer.setId(data.id);
     };
 
     return (
