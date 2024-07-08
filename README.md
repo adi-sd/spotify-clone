@@ -1,3 +1,13 @@
+## App Details
+
+[App Link](https://spotify-clone-mauve-six.vercel.app/)
+
+## Screen Shots
+
+### Mobile Browser
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
